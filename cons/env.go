@@ -7,6 +7,7 @@ var (
 )
 
 type RunEnvironment string
+type RunEnvironmentShort string
 
 var (
 	Debugging   RunEnvironment = "Debugging"
@@ -15,4 +16,9 @@ var (
 	Staging     RunEnvironment = "Staging"
 	Sandbox     RunEnvironment = "Sandbox"
 	Production  RunEnvironment = "Production"
+
+	DevelopmentShort RunEnvironmentShort = "dev"
+	TestingShort     RunEnvironmentShort = "test"
+	StagingShort     RunEnvironmentShort = "stg"
+	ProductionShort  RunEnvironmentShort = "prod"
 )

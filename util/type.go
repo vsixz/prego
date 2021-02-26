@@ -2,6 +2,72 @@ package util
 
 import "time"
 
+func StringOrDefault(v, def string) string {
+	if len(v) == 0 {
+		v = def
+	}
+	return v
+}
+func IntOrDefault(v, def int) int{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+func Uint8OrDefault(v, def uint8) uint8{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+func Uint16OrDefault(v, def uint16) uint16{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+func Uint32OrDefault(v, def uint32) uint32{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+
+func Uint64OrDefault(v, def uint64) uint64{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+
+func Int8OrDefault(v, def int8) int8{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+
+func Int16OrDefault(v, def int16) int16{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+
+func Int32OrDefault(v, def int32) int32{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+
+func Int64OrDefault(v, def int64) int64{
+	if v == 0 {
+		v = def
+	}
+	return v
+}
+
 func StringPtr(v string) *string {
 	return &v
 }

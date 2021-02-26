@@ -14,29 +14,32 @@ type level struct {
 
 var (
 	debug level = level{
-		title:               "DEBUG",
-		foregroundColorCode: 34,
-		backgroundColorCode: 8,
+		title: "DEBUG",
+		backgroundColorCode: 1,
 	}
 	info level = level{
-		title:               "INFO",
-		foregroundColorCode: 32,
-		backgroundColorCode: 8,
+		title: "INFO",
+		backgroundColorCode: 1,
 	}
 	warn level = level{
 		title:               "WARN",
 		foregroundColorCode: 33,
-		backgroundColorCode: 8,
+		backgroundColorCode: 1,
 	}
 	error level = level{
 		title:               "ERROR",
 		foregroundColorCode: 31,
-		backgroundColorCode: 8,
+		backgroundColorCode: 1,
 	}
 	fatal level = level{
 		title:               "FATAL",
 		foregroundColorCode: 37,
 		backgroundColorCode: 41,
+	}
+	health level = level{
+		title:               " - ",
+		foregroundColorCode: 32,
+		backgroundColorCode: 1,
 	}
 )
 
@@ -90,6 +93,16 @@ func FatalF(format string, args ...interface{}) {
 	text := fmt.Sprintf(format, args...)
 	print(text, fatal)
 	os.Exit(1)
+}
+
+func Health(args ...interface{}) {
+	text := fmt.Sprint(args...)
+	print(text, health)
+}
+
+func HealthF(format string, args ...interface{}) {
+	text := fmt.Sprintf(format, args...)
+	print(text, health)
 }
 
 func print(text string, l level) {

@@ -1,10 +1,10 @@
-package sqlserver
+package orm
 
 import (
 	"fmt"
 	"github.com/vsixz/prego/cons"
-	"github.com/vsixz/prego/orm/types"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 	"os"
 	"time"
 
@@ -12,16 +12,12 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var db *gorm.DB
-
-func DB(dbConf types.DatabaseConfig) *gorm.DB {
-	if dbConf == (types.DatabaseConfig{}) {
+func newSqlserver(dbConf DatabaseConfig) *Database {
+	if dbConf == (DatabaseConfig{}) {
 		panic("Read sqlserver database config failed.")
 	}
-	if db != nil {
-		return db
-	}
-	conn := fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s",
+
+	conn := fmt.Sprintf("sqlserver://%s:%s@%s:%d?database=%s",
 		dbConf.Username,
 		dbConf.Password,
 		dbConf.Host,
@@ -33,7 +29,10 @@ func DB(dbConf types.DatabaseConfig) *gorm.DB {
 		logLevel = logger.Info
 	}
 
-	db, _ = gorm.Open(sqlserver.Open(conn), &gorm.Config{
+	db, _ := gorm.Open(sqlserver.Open(conn), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true,
+		},
 		Logger: logger.Default.LogMode(logLevel),
 	})
 
@@ -43,5 +42,5 @@ func DB(dbConf types.DatabaseConfig) *gorm.DB {
 		pool.SetMaxOpenConns(100)
 		pool.SetConnMaxLifetime(time.Hour)
 	}
-	return db
+	return &Database{db}
 }

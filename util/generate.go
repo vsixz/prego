@@ -5,7 +5,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/vsixz/prego/log"
 	"math/rand"
-	"strings"
 	"time"
 )
 
@@ -14,7 +13,7 @@ func GenerateUUID() string {
 }
 
 func GeneratePureUUID() string {
-	return strings.Replace(GenerateUUID(), "-", "", -1)
+	return SweepString(GenerateUUID(),"-")
 }
 
 // Password generate random string
