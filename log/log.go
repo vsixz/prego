@@ -14,11 +14,11 @@ type level struct {
 
 var (
 	debug level = level{
-		title: "DEBUG",
+		title:               "DEBUG",
 		backgroundColorCode: 1,
 	}
 	info level = level{
-		title: "INFO",
+		title:               "INFO",
 		backgroundColorCode: 1,
 	}
 	warn level = level{
@@ -48,7 +48,7 @@ func Debug(args ...interface{}) {
 	print(text, debug)
 }
 
-func DebugF(format string, args ...interface{}) {
+func Debugf(format string, args ...interface{}) {
 	text := fmt.Sprintf(format, args...)
 	print(text, debug)
 }
@@ -58,7 +58,7 @@ func Info(args ...interface{}) {
 	print(text, info)
 }
 
-func InfoF(format string, args ...interface{}) {
+func Infof(format string, args ...interface{}) {
 	text := fmt.Sprintf(format, args...)
 	print(text, info)
 }
@@ -68,7 +68,7 @@ func Warn(args ...interface{}) {
 	print(text, warn)
 }
 
-func WarnF(format string, args ...interface{}) {
+func Warnf(format string, args ...interface{}) {
 	text := fmt.Sprintf(format, args...)
 	print(text, warn)
 }
@@ -78,7 +78,7 @@ func Error(args ...interface{}) {
 	print(text, error)
 }
 
-func ErrorF(format string, args ...interface{}) {
+func Errorf(format string, args ...interface{}) {
 	text := fmt.Sprintf(format, args...)
 	print(text, error)
 }
@@ -89,7 +89,7 @@ func Fatal(args ...interface{}) {
 	os.Exit(1)
 }
 
-func FatalF(format string, args ...interface{}) {
+func Fatalf(format string, args ...interface{}) {
 	text := fmt.Sprintf(format, args...)
 	print(text, fatal)
 	os.Exit(1)
@@ -100,7 +100,7 @@ func Health(args ...interface{}) {
 	print(text, health)
 }
 
-func HealthF(format string, args ...interface{}) {
+func Healthf(format string, args ...interface{}) {
 	text := fmt.Sprintf(format, args...)
 	print(text, health)
 }

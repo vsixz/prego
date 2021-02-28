@@ -30,6 +30,22 @@ func (r *Repository) Get(id, entry interface{}) error {
 	return nil
 }
 
+type FirstOption struct {
+	Condition *condition
+}
+
+func (r *Repository) First(entry interface{}, opt ...FirstOption) error {
+	var firstOption FirstOption
+	if len(opt) > 0 {
+		firstOption = opt[0]
+	}
+	query := r.Database.Model(entry)
+	if firstOption.Condition != nil {
+		query = query.Where(firstOption.Condition.Expression, firstOption.Condition.Arguments...)
+	}
+	return query.First(entry).Error
+}
+
 func (r *Repository) Create(entry interface{}) error {
 	return r.Database.Model(entry).Create(entry).Error
 }
@@ -48,16 +64,22 @@ func (r *Repository) Update(entry interface{}, opt ...UpdateOption) error {
 	if updateOption.Condition != nil {
 		query = query.Where(updateOption.Condition.Expression, updateOption.Condition.Arguments...)
 	}
-	//if len(updateOption.Columns) > 0 {
-	//	query = query.Select(updateOption.Columns)
-	//}
-
 	return query.Select(updateOption.Columns).Updates(entry).Error
 }
 
 func (r *Repository) Delete(id interface{}, entry interface{}) error {
-
 	return r.Database.Where("id = ?", id).Delete(entry).Error
+}
+
+type SweepOption struct {
+	Condition *condition
+}
+
+func (r *Repository) Sweep(entry interface{}, opt SweepOption) error {
+	if opt.Condition == nil {
+		return nil
+	}
+	return r.Database.Where(opt.Condition.Expression, opt.Condition.Arguments...).Delete(entry).Error
 }
 
 type condition struct {

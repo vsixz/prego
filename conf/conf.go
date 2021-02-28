@@ -14,7 +14,7 @@ func ReadFrom(file string) *config {
 	viper.SetConfigFile(file)
 	err := viper.ReadInConfig()
 	if err != nil {
-		log.Error("read config failed.")
+		log.Errorf("read config failed: %s", err)
 	}
 	v := viper.GetViper()
 	return &config{
@@ -26,9 +26,10 @@ func ReadFromOptions(opt ConfigOptions) *config {
 	viper.AddConfigPath(opt.Path)
 	viper.SetConfigType(opt.Type)
 	viper.SetConfigName(opt.Name)
+
 	err := viper.ReadInConfig()
 	if err != nil {
-		log.Error("read config failed.")
+		log.Errorf("read config failed: %s", err)
 	}
 	v := viper.GetViper()
 	return &config{
