@@ -10,7 +10,21 @@ type config struct {
 	viper.Viper
 }
 
-func ReadFrom(file string) *config {
+type ConfigType string
+
+const (
+	JsonConfigType ConfigType = "json"
+	TomlConfigType ConfigType = "toml"
+	YamlConfigType ConfigType = "yaml"
+	YmlConfigType  ConfigType = "yml"
+	IniConfigType  ConfigType = "ini"
+	EnvConfigType  ConfigType = "env"
+)
+
+func Read(file string, configType ...ConfigType) *config {
+	if len(configType) > 0 {
+		viper.SetConfigType(string(configType[0]))
+	}
 	viper.SetConfigFile(file)
 	err := viper.ReadInConfig()
 	if err != nil {
@@ -20,27 +34,6 @@ func ReadFrom(file string) *config {
 	return &config{
 		Viper: *v,
 	}
-}
-
-func ReadFromOptions(opt ConfigOptions) *config {
-	viper.AddConfigPath(opt.Path)
-	viper.SetConfigType(opt.Type)
-	viper.SetConfigName(opt.Name)
-
-	err := viper.ReadInConfig()
-	if err != nil {
-		log.Errorf("read config failed: %s", err)
-	}
-	v := viper.GetViper()
-	return &config{
-		Viper: *v,
-	}
-}
-
-type ConfigOptions struct {
-	Name string
-	Type string
-	Path string
 }
 
 func (c config) GetOrDefault(key string, def interface{}) interface{} {

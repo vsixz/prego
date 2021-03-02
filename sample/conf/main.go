@@ -21,7 +21,7 @@ func main() {
 }
 
 func readFromJsonFile() {
-	c := conf.ReadFrom("./sample/conf/conf.json")
+	c := conf.Read("./sample/conf/conf.json")
 	log.Debug(c.Get("key1"))
 
 	var u User
@@ -31,7 +31,7 @@ func readFromJsonFile() {
 }
 
 func readFromYamlFile() {
-	c := conf.ReadFrom("./sample/conf/conf.yaml")
+	c := conf.Read("./sample/conf/conf.yaml")
 	log.Debug(c.Get("key1"))
 
 	var u User
@@ -41,7 +41,7 @@ func readFromYamlFile() {
 }
 
 func readFromYmlFile() {
-	c := conf.ReadFrom("./sample/conf/conf.yml")
+	c := conf.Read("./sample/conf/conf.yml")
 	log.Debug(c.Get("key1"))
 
 	var u User
@@ -51,7 +51,7 @@ func readFromYmlFile() {
 }
 
 func readFromTomlFile() {
-	c := conf.ReadFrom("./sample/conf/conf.toml")
+	c := conf.Read("./sample/conf/conf.toml")
 	log.Debug(c.Get("key1"))
 
 	var u User
@@ -61,7 +61,7 @@ func readFromTomlFile() {
 }
 
 func readFromIniFile() {
-	c := conf.ReadFrom("./sample/conf/conf.ini")
+	c := conf.Read("./sample/conf/conf.ini")
 
 	log.Debug(c.Get("default.key1"))
 	log.Debug(c.Get("user.id"))
@@ -69,7 +69,7 @@ func readFromIniFile() {
 }
 
 func readFromEnvFile() {
-	c := conf.ReadFrom("./sample/conf/conf.env")
+	c := conf.Read("./sample/conf/conf.env")
 
 	log.Debug(c.Get("KEY_1"))
 	log.Debug(c.Get("USER_ID"))
@@ -77,11 +77,7 @@ func readFromEnvFile() {
 }
 
 func readFromDestFile() {
-	c := conf.ReadFromOptions(conf.ConfigOptions{
-		Path: "./sample/conf",
-		Type: "json",
-		Name: "app.conf",
-	})
+	c := conf.Read("./sample/conf/app.conf", "json")
 	log.Debug(c.Get("key1"))
 
 	var u User
